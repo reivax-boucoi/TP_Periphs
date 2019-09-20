@@ -11,6 +11,8 @@
 #include "MyTimer.h"
 #include "stm32f103xb.h" 
 
+void (* IRQ_10ms_callback) (void);
+
 	void MyTimer_Conf(TIM_TypeDef * Timer,int Arr, int Psc){
 		
 		//TODO adapter en fonction de Timer
@@ -42,21 +44,57 @@
 	
 void MyTimer_IT_Conf(TIM_TypeDef * Timer, void (*IT_function) (void),int Prio){
 	
-		Timer->DIER|=TIM_DIER_UIE;
-		
+	
 			if(Timer==TIM1){
-			NVIC_EnableIRQ(25);
+			NVIC_SetPriority (TIM1_UP_IRQn, Prio);
+			NVIC_EnableIRQ(TIM1_UP_IRQn);
+				
 		}else if(Timer==TIM2){
-			NVIC_EnableIRQ();
+			NVIC_SetPriority (TIM2_IRQn, Prio);
+			NVIC_EnableIRQ(TIM2_IRQn);
+			
 		}else if(Timer==TIM3){
-			NVIC_EnableIRQ(29);
+			NVIC_SetPriority (TIM3_IRQn, Prio);
+			NVIC_EnableIRQ(TIM3_IRQn);
+			
 		}else if(Timer==TIM4){
-			NVIC_EnableIRQ(30);
+			NVIC_SetPriority (TIM4_IRQn, Prio);
+			NVIC_EnableIRQ(TIM4_IRQn);
 		}
+		IRQ_10ms_callback=IT_function;
+		
 }
 void MyTimer_IT_Enable(TIM_TypeDef * Timer){
-	
+		Timer->DIER|=TIM_DIER_UIE;
 }
+
 void MyTimer_IT_Disable(TIM_TypeDef * Timer){
-	
+		Timer->DIER&=~TIM_DIER_UIE;
 }
+
+
+
+void TIM1_IRQHandler(void){
+	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
+	
+	TIM1->SR&=~TIM_SR_UIF;
+}
+
+void TIM2_IRQHandler(void){
+	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
+	
+	TIM2->SR&=~TIM_SR_UIF;
+}
+
+void TIM3_IRQHandler(void){
+	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
+	
+	TIM3->SR&=~TIM_SR_UIF;
+}
+
+void TIM4_IRQHandler(void){
+	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
+	
+	TIM4->SR&=~TIM_SR_UIF;
+}
+

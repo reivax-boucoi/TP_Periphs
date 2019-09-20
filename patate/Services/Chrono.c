@@ -40,13 +40,14 @@ void Chrono_Conf(TIM_TypeDef * Timer)
 	MyTimer_Conf(Chrono_Timer,11250,64);
 	
 	// Réglage interruption du Timer avec callback : Chrono_Task_10ms()
-	MyTimer_IT_Conf(Chrono_Timer,Chrono_Task_10ms,20);	//TODO Prio ??
+	MyTimer_IT_Conf(Chrono_Timer,Chrono_Task_10ms,0x30);
 	
 	// Validation IT
-	//MyTimer_IT_Enable(..
+	MyTimer_IT_Enable(Chrono_Timer);
 	
 	
 }
+
 
 
 /**
@@ -101,6 +102,7 @@ Time * Chrono_Read(void)
 {
 	return &Chrono_Time;
 }
+
 
 
 
