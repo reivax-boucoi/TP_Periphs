@@ -75,26 +75,26 @@ void MyTimer_IT_Disable(TIM_TypeDef * Timer){
 
 
 void TIM1_IRQHandler(void){
+	TIM1->SR&=~TIM_SR_UIF;
 	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
 	
-	TIM1->SR&=~TIM_SR_UIF;
 }
 
 void TIM2_IRQHandler(void){
+	TIM2->SR&=~TIM_SR_UIF;
 	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
 	
-	TIM2->SR&=~TIM_SR_UIF;
 }
 
 void TIM3_IRQHandler(void){
+	TIM3->SR&=~TIM_SR_UIF;
 	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
 	
-	TIM3->SR&=~TIM_SR_UIF;
 }
 
 void TIM4_IRQHandler(void){
+	TIM4->SR&=~TIM_SR_UIF;
 	if (IRQ_10ms_callback != 0)(*IRQ_10ms_callback) ();
 	
-	TIM4->SR&=~TIM_SR_UIF;
 }
 

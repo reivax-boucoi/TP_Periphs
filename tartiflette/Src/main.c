@@ -39,11 +39,20 @@ int main(void)
 
   /* Add your application code here */
 	
-	//TESTS
-	//SPI1->CR1 |= SPI_CR1_CPOL;
-	//SPI1->CR1 &= ~SPI_CR1_DFF;
+	//TESTS GPIO
 	
-	//USART2->CR2|=(USART_CR2_STOP_1);
+	//PC8 floating input
+	GPIOC->CRH|=GPIO_CRH_CNF8_0;
+	
+	//PC6 input pulldown
+	GPIOC->CRL |= GPIO_CRL_CNF6_1;
+	GPIOC->ODR &=~GPIO_ODR_ODR6;
+	
+	//PC10 output push-pull
+	GPIOC->CRH |= GPIO_CRH_MODE10_1 ;
+	
+	//PC10 output open drain
+	//GPIOC->CRH |= GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_0;
 	
   // Configuration chronomètre
 	Chrono_Conf(TIM2);
@@ -52,10 +61,22 @@ int main(void)
 	Chrono_Start(); 
   
   /* Infinite loop */
-  while (1)
-  {
-		test=Chrono_Read()->Hund;
-  }
+	while (1)
+	{
+test=Chrono_Read()->Hund;
+		if(GPIOC->IDR & GPIO_IDR_IDR8){
+			//test=1;
+		}else{
+		//	test=0;
+		}
+
+		//Pour set et/ou reset la led
+		if(GPIOC->IDR & GPIO_IDR_IDR6){
+			GPIOC->BSRR|=GPIO_BSRR_BS10;
+		}else{
+			GPIOC->BSRR|=GPIO_BSRR_BR10;
+		}
+	}
 }
 
 
