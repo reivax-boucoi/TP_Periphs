@@ -6,3 +6,8 @@ Repo de travail 4AE-SE TP Peripheriques
 ### Activité 1
  * Source : `Dossier Patate`
  * Resultat : `patate/youpi.png`
+
+
+### Activité 2
+ * Source : `Dossier tartiflette`
+ * Resultat : `Coming soon !`
