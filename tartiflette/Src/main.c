@@ -40,19 +40,22 @@ int main(void)
   /* Add your application code here */
 	
 	//TESTS GPIO
-	
-	//PC8 floating input
+	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;
+	//PC8 floating input (facultatif)
 	GPIOC->CRH|=GPIO_CRH_CNF8_0;
 	
 	//PC6 input pulldown
 	GPIOC->CRL |= GPIO_CRL_CNF6_1;
+	GPIOC->CRL &= ~GPIO_CRL_CNF6_0;
 	GPIOC->ODR &=~GPIO_ODR_ODR6;
 	
 	//PC10 output push-pull
 	GPIOC->CRH |= GPIO_CRH_MODE10_1 ;
+	GPIOC->CRH &=~(GPIO_CRH_CNF10_1 | GPIO_CRH_CNF10_0);
 	
 	//PC10 output open drain
 	//GPIOC->CRH |= GPIO_CRH_MODE10_1 | GPIO_CRH_CNF10_0;
+	//GPIOC->CRH &=~GPIO_CRH_CNF10_1;
 	
   // Configuration chronomètre
 	Chrono_Conf(TIM2);
