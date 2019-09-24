@@ -22,6 +22,12 @@ static TIM_TypeDef * Chrono_Timer=TIM1; // init par défaut au cas où l'utilisate
 // déclaration callback appelé toute les 10ms
 void Chrono_Task_10ms(void);
 
+
+
+void Chrono_Conf_io(void){
+	
+}
+
 /**
 	* @brief  Configure le chronomètre. 
   * @note   A lancer avant toute autre fonction.

@@ -37,6 +37,15 @@ Les fonctions qui gèrent les IO (ajout par rapport à l'activité 1)
 		
 void Chrono_Background(void);
 
+
+/**
+	* @brief  configure les GPIOs
+  * @note   Fct à lancer dans Chrono_Conf()
+	* @param  None 
+  * @retval None
+  */
+//void Chrono_Conf_io(void);
+
 //=======================================================================================//
 
 
