@@ -19,6 +19,9 @@ static Time Chrono_Time; // rem : static rend la visibilité de la variable Chron
 // variable privée qui mémorise pour le module le timer utilisé par le module
 static TIM_TypeDef * Chrono_Timer=TIM1; // init par défaut au cas où l'utilisateur ne lance pas Chrono_Conf avant toute autre fct.
 
+
+static int oldStartState, oldStopState;
+
 // déclaration callback appelé toute les 10ms
 void Chrono_Task_10ms(void);
 
@@ -74,6 +77,9 @@ void Chrono_Conf(TIM_TypeDef * Timer)
 	led.OutputType=LL_GPIO_OUTPUT_PUSHPULL;
 	LL_GPIO_Init(GPIO_LED, &led);
 	
+	//Valeurs par défaut des boutons Start and Stop
+	oldStartState = 0;
+	oldStopState = 1;
 	
 }
 
@@ -161,4 +167,22 @@ void Chrono_Task_10ms(void)
 	
 }
 
+void Chrono_Background(void){
+	
+	
+	if(LL_GPIO_IsInputPinSet(GPIO_Pin,PinStart) != oldStartState){
+		if(oldStartState==0){
+			Chrono_Start();
+		}
+		oldStartState=1-oldStartState;
+	}
+	
+	if(LL_GPIO_IsInputPinSet(GPIO_Pin,PinStop) != oldStopState){
+		if(oldStopState==1){
+			Chrono_Stop();
+		}
+		oldStopState=1-oldStopState;
+	}
+			
+}
 

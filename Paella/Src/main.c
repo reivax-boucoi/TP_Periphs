@@ -43,7 +43,7 @@ int main(void)
 	Chrono_Conf(TIM3);
 	
 	// Lancement chronomètre
-	Chrono_Start(); 
+//	Chrono_Start(); 
 	
 
   
@@ -51,6 +51,7 @@ int main(void)
   while (1)
   {
 		test=Chrono_Read()->Hund;
+		Chrono_Background();
   }
 }
 
