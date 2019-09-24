@@ -32,7 +32,7 @@ void  SystemClock_Config(void);
   * @retval None
   */
 	
-
+int test;
 int main(void)
 {
   /* Configure the system clock to 72 MHz */
@@ -50,6 +50,7 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
+		test=Chrono_Read()->Hund;
   }
 }
 

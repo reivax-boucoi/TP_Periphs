@@ -10,6 +10,8 @@ Utilise la lib MyTimers.h /.c
 
 #include "Chrono.h"
 #include "MyTimer.h"
+#include "stm32f1xx_ll_gpio.h"
+#include "stm32f1xx_ll_bus.h"
 
 // variable privée de type Time qui mémorise la durée mesurée
 static Time Chrono_Time; // rem : static rend la visibilité de la variable Chrono_Time limitée à ce fichier 
@@ -45,7 +47,26 @@ void Chrono_Conf(TIM_TypeDef * Timer)
 	// Validation IT
 	MyTimer_IT_Enable(Chrono_Timer);
 	
-	Chrono_Conf_io();
+	
+	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOC);
+	
+	LL_GPIO_InitTypeDef start;
+	start.Pin=PinStart;
+	start.Mode=LL_GPIO_MODE_FLOATING;
+	LL_GPIO_Init(GPIO_Pin, &start);
+	
+	LL_GPIO_InitTypeDef stop;
+	stop.Pin=PinStop;
+	stop.Mode=LL_GPIO_MODE_INPUT;
+	stop.Pull=LL_GPIO_PULL_DOWN;
+	LL_GPIO_Init(GPIO_Pin, &stop);
+	
+	LL_GPIO_InitTypeDef led;
+	led.Pin=PinLED;
+	led.Mode=LL_GPIO_MODE_OUTPUT;
+	led.Speed=LL_GPIO_SPEED_FREQ_LOW; //2MHz
+	led.OutputType=LL_GPIO_OUTPUT_PUSHPULL;
+	LL_GPIO_Init(GPIO_LED, &led);
 	
 	
 }
@@ -118,6 +139,7 @@ void Chrono_Task_10ms(void)
 	Chrono_Time.Hund++;
 	if (Chrono_Time.Hund==100)
 	{
+		LL_GPIO_TogglePin(GPIO_LED,PinLED);
 		Chrono_Time.Sec++;
 		Chrono_Time.Hund=0;
 	}
@@ -133,10 +155,4 @@ void Chrono_Task_10ms(void)
 	
 }
 
-void Chrono_Conf_io(void){
-	
-}
 
-void Chrono_Background(void){
-	
-}

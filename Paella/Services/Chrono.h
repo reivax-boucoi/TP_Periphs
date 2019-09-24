@@ -23,14 +23,9 @@ Les fonctions qui gèrent les IO (ajout par rapport à l'activité 1)
 #define GPIO_Pin GPIOC
 #define GPIO_LED GPIOC
 
-/**
-	* @brief  configure les 3 GPIOS
-  * @note   Fct à lancer par Chrono_Conf
-	* @param  None 
-  * @retval None
-  */
 
-void Chrono_Conf_io(void);
+
+
 
 
 /**
