@@ -45,6 +45,8 @@ void Chrono_Conf(TIM_TypeDef * Timer)
 	// Validation IT
 	MyTimer_IT_Enable(Chrono_Timer);
 	
+	Chrono_Conf_io();
+	
 	
 }
 
@@ -131,4 +133,10 @@ void Chrono_Task_10ms(void)
 	
 }
 
+void Chrono_Conf_io(void){
+	
+}
 
+void Chrono_Background(void){
+	
+}
