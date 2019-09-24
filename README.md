@@ -9,5 +9,6 @@ Repo de travail 4AE-SE TP Peripheriques
 
 
 ### Activité 2
- * Source : `Dossier tartiflette`
+ * Manipulation des registres I/O: `Dossier tartiflette`
+ * Librarie LL : `Dossier Paella`
  * Resultat : `Coming soon !`
