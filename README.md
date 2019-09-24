@@ -12,4 +12,7 @@ Repo de travail 4AE-SE TP Peripheriques
  * Manipulation des registres I/O: `Dossier tartiflette`
  * Resultat : `ça clignote`
  * Librarie LL : `Dossier Paella`
- * Resultat : `Coming soon !`
+ * Resultat : `startnstop.png`
+
+### Activité 3
+ *  USART : `Dossier Topinambour`
