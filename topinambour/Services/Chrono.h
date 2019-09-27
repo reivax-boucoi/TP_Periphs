@@ -28,6 +28,7 @@ Les fonctions qui gèrent les IO (ajout par rapport à l'activité 1)
 
 
 
+
 /**
 	* @brief  polle les 3 entrées et gènère les actions à faire
   * @note   Fct à lancer en tâche de fond (non bloquante)
@@ -65,15 +66,18 @@ typedef struct {
 /**
 	* @brief  Configure le chronomètre. 
   * @note   A lancer avant toute autre fonction.
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
+	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4, USART_TypeDef Uart : indique l'uart à utiliser (UART2 pour utiliser le STLINK/V2)
   * @retval None
   */
 void Chrono_Conf(TIM_TypeDef * Timer);
 
-
-
-
-
+/**
+	* @brief  Configure les I/O. 
+  * @note   A lancer par Chrono_Conf.
+	* @param  none
+  * @retval None
+  */
+void Chrono_Conf_IO(void);
 
 /**
 	* @brief  Démarre le chronomètre. 
@@ -109,6 +113,15 @@ void Chrono_Reset(void);
   * @retval adresse de la variable Time
   */
 Time * Chrono_Read(void);
+
+/**
+	* @brief  Envoie le temps courant sur l'uart
+  * @note   
+	* @param  Aucun
+  * @retval aucun
+  */
+void Chrono_Send(void);
+
 
 
 

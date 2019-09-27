@@ -1,3 +1,5 @@
+
+
 /**
   ******************************************************************************
   * @file    Templates_LL/Src/main.c
@@ -40,10 +42,10 @@ int main(void)
 
   /* Add your application code here */
   // Configuration chronomètre
-	Chrono_Conf(TIM3);
+	Chrono_Conf(TIM2);
 	
 	// Lancement chronomètre
-//	Chrono_Start(); 
+	Chrono_Start(); 
 	
 
   
@@ -52,6 +54,7 @@ int main(void)
   {
 		test=Chrono_Read()->Hund;
 		Chrono_Background();
+		Chrono_Send();
   }
 }
 
