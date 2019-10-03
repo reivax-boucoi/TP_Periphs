@@ -34,7 +34,7 @@ void MyUart_Conf(USART_TypeDef * Uart,int baudrate);
 
 void sendChar(char c);
 void sendString(const char* str);
-void sendNumber(int n);
+void sendNumber(int n,int digits);
 
 
 

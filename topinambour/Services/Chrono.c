@@ -196,11 +196,11 @@ void Chrono_Background(void){
 void Chrono_Send(void){
 	if(FLAG_sendTime){
 	//	sendString("Hello ");
-		sendNumber(Chrono_Time.Min);
+		sendNumber(Chrono_Time.Min,1);
 		sendChar(':');
-		sendNumber(Chrono_Time.Sec);
+		sendNumber(Chrono_Time.Sec,1);
 		sendChar(':');
-		sendNumber(Chrono_Time.Hund);
+		sendNumber(Chrono_Time.Hund,1);
 		sendChar(':');
 		sendChar('\r');
 		FLAG_sendTime=0;

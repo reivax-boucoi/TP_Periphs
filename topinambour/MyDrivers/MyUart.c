@@ -7,17 +7,30 @@
 struct Buffer tx_buff;
 
 
+
+/* On vérifie que le buffer est plein ou non :
+		- si le head pointe vers la même position que tail, le buffer est VIDE
+		- sinon le buffer est PLEIN
+*/
 int isEmpty(void){
 	return (tx_buff.head==tx_buff.tail);
 }
+
+/* Initialiser les pointeurs du buffer head et tail */
 void bufferInit(void){
 	tx_buff.head=0;
 	tx_buff.tail=0;
 }
+
+
+/*Ajouter un caractère dans le buffer */
 void bufferPush(char c){
 	tx_buff.buff[tx_buff.head]=c;
 	tx_buff.head=(tx_buff.head+1)&BUFFER_MASK;
 }
+
+
+/*Extraire un caractère du buffer pour l'envoi */
 char bufferPull(void){
 	char ret=tx_buff.buff[tx_buff.tail];
 	tx_buff.tail=(tx_buff.tail+1)&BUFFER_MASK;
@@ -25,19 +38,28 @@ char bufferPull(void){
 }
 
 
-
+/*On active l'Interruption liée à la transmission de donnée de l'USART puis on envoi le caractère c */
 void sendChar(char c){
 	LL_USART_EnableIT_TXE(USART2);
 	bufferPush(c);
 }
+
+/* Fonction permettant d'envoyer la chaine str (appel en boucle de sendChar() ) */
 void sendString(const char* str){
 	while(*str>0)sendChar(*str++);
 }
-void sendNumber(int n){
-	int d=10;/*
-	while((10*d)<=n)d*=10;*/
+
+/*Envoi un nmbre (min,sec...) en fonction du nombre de digits (1 ou 2 dans notre cas).*/
+
+void sendNumber(int n,int digits){
+	int d=1;
+	if(digits){	//On aura donc 2 digits, sinon c'est flexible.
+	d=10;
+	}else{
+		while((10*d)<=n)d*=10; //On check le nb de chiffres contenus dans n
+	}
 	while(d>0){
-		sendChar(((n/d)%10)+0x30);
+		sendChar(((n/d)%10)+0x30); //Décalage pur atteindre les nombres dans la table ASCII
 		d/=10;
 	}
 }
@@ -97,6 +119,7 @@ void MyUart_Conf(USART_TypeDef * Uart,int baudrate){
 	bufferInit();
 }
 
+// Ce handler remplace le handler WEAK associé 
 void USART2_IRQHandler(void){
 	if(LL_USART_IsActiveFlag_TXE(USART2)!=RESET){
 		if(isEmpty()){
