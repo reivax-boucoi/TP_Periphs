@@ -69,7 +69,7 @@ void Chrono_Conf(TIM_TypeDef * Timer, USART_TypeDef *Usart)
 		
 	Chrono_Conf_IO();
 	
-	MyUart_Conf(Chrono_Usart,9600);
+	MyUart_Conf(Chrono_Usart,19200);
 	
 }
 
@@ -155,10 +155,10 @@ Time * Chrono_Read(void)
 void Chrono_Task_10ms(void)
 { 
 	Chrono_Time.Hund++;
+	FLAG_sendTime=1;
 	if (Chrono_Time.Hund==100)
 	{
 		LL_GPIO_TogglePin(GPIO_LED,PinLED);
-		FLAG_sendTime=1;
 		Chrono_Time.Sec++;
 		Chrono_Time.Hund=0;
 	}
@@ -195,7 +195,14 @@ void Chrono_Background(void){
 
 void Chrono_Send(void){
 	if(FLAG_sendTime){
-		sendTime(Chrono_Usart,Chrono_Time);
+	//	sendString("Hello ");
+		sendNumber(Chrono_Time.Min);
+		sendChar(':');
+		sendNumber(Chrono_Time.Sec);
+		sendChar(':');
+		sendNumber(Chrono_Time.Hund);
+		sendChar(':');
+		sendChar('\r');
 		FLAG_sendTime=0;
 	}
 }

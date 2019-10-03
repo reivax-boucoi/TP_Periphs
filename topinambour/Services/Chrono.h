@@ -69,7 +69,7 @@ typedef struct {
 	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4, USART_TypeDef Uart : indique l'uart à utiliser (UART2 pour utiliser le STLINK/V2)
   * @retval None
   */
-void Chrono_Conf(TIM_TypeDef * Timer);
+void Chrono_Conf(TIM_TypeDef * Timer, USART_TypeDef *Usart);
 
 /**
 	* @brief  Configure les I/O. 
