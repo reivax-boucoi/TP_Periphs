@@ -23,6 +23,7 @@
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
 
 #include "MyUart.h"
+#include "Remote.h"
 
 void  SystemClock_Config(void);
 
@@ -46,8 +47,9 @@ int main(void)
 	MyUart_sendNumber(123,0);
 	MyUart_sendString("\r\n");
 	
-  while (1)
-  {
+  while (1){
+		
+		
   }
 }
 
