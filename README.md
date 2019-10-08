@@ -2,7 +2,8 @@
 Repo de travail 4AE-SE TP Peripheriques
 > ZENNARO Thomas <br>
 > BOURLOT Xavier
-
+##Manipulation des peripheriques
+* Dossier `Manipulation_periphs`
 ### Activité 1
  * Source : `Dossier Patate`
  * Resultat : `patate/youpi.png`
