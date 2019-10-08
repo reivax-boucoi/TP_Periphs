@@ -1,7 +1,7 @@
 # TP_Periphs
 Repo de travail 4AE-SE TP Peripheriques
 > ZENNARO Thomas <br>
-> BOURLOT Xavier
+> BOURLOT Xavier <br>
 ##Manipulation des peripheriques
 * Dossier `Manipulation_periphs`
 ### Activité 1
