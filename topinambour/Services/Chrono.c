@@ -50,7 +50,7 @@ void Chrono_Conf(TIM_TypeDef * Timer, USART_TypeDef *Usart)
 	// Reset Time
 	Chrono_Time.Hund=0;
 	Chrono_Time.Sec=0;
-	Chrono_Time.Min=0;
+	Chrono_Time.Min=59;
 	
 	// Fixation du Timer
 	Chrono_Timer=Timer;
@@ -128,7 +128,7 @@ void Chrono_Reset(void)
 	// Reset Time
 	Chrono_Time.Hund=0;
 	Chrono_Time.Sec=0;
-	Chrono_Time.Min=0;
+	Chrono_Time.Min=59;
 }
 
 

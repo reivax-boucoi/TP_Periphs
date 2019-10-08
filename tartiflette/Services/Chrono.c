@@ -88,7 +88,7 @@ void Chrono_Reset(void)
 	// Reset Time
 	Chrono_Time.Hund=0;
 	Chrono_Time.Sec=0;
-	Chrono_Time.Min=0;
+	Chrono_Time.Min=59;
 }
 
 
