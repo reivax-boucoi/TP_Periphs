@@ -35,6 +35,7 @@ void MyUart_Conf(USART_TypeDef * Uart,int baudrate);
 void MyUart_sendChar(char c);
 void MyUart_sendString(const char* str);
 void MyUart_sendNumber(int n,int digits);
+void MyUart_sendCharImmediate(char c);
 
 
 

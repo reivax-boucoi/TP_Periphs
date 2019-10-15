@@ -50,6 +50,7 @@ int main(void)
 	MyUart_sendNumber(123,0);
 	MyUart_sendString("\r\n");
 	
+	//Remote_init();
   while (1){
 		
 		

@@ -13,21 +13,21 @@ void Remote_init(void){
 	
 	LL_GPIO_InitTypeDef remote_rx;
 	remote_rx.Pin=PinRemoteRx;
-	remote_rx.Mode=LL_GPIO_MODE_ALTERNATE;
+	remote_rx.Mode=LL_GPIO_MODE_FLOATING;
 	remote_rx.Pull=LL_GPIO_PULL_DOWN;
 	remote_rx.Speed=LL_GPIO_SPEED_FREQ_LOW;
 	remote_rx.OutputType=LL_GPIO_OUTPUT_PUSHPULL;
 	
 	LL_GPIO_Init(Remote_Pin, &remote_rx);
 	
-LL_TIM_InitTypeDef timer;
-	
+	LL_TIM_InitTypeDef timer;
+	timer.Autoreload=9999;
+	timer.Prescaler=143;
+	timer.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;	
 	LL_TIM_Init(TIM4,&timer);
 	
-	LL_TIM_ENCODER_InitTypeDef encoder;
-	encoder.EncoderMode=LL_TIM_ENCODERMODE_X2_TI1;
-//	encoder.IC1ActiveInput=LL_TIM_
-	/*
+
+	
 //Activation du front montant
 	
 	LL_TIM_IC_InitTypeDef myTimIC;
@@ -49,8 +49,13 @@ LL_TIM_InitTypeDef timer;
 	myTimIC2.ICActiveInput=LL_TIM_ACTIVEINPUT_DIRECTTI;
 	myTimIC2.ICPrescaler=LL_TIM_ICPSC_DIV4;
 	
-	LL_TIM_IC_Init(TIM4,LL_TIM_CHANNEL_CH2,&myTimIC2);
-	*/
+	LL_TIM_IC_Init(TIM4,LL_TIM_CHANNEL_CH1,&myTimIC2);
+	
+	TIM4->SMCR|=TIM_SMCR_TS_0|TIM_SMCR_TS_2;
+	LL_TIM_SetSlaveMode(TIM4,LL_TIM_SLAVEMODE_RESET);
+	
+	LL_TIM_EnableCounter(TIM4);
+	
 }
 
 

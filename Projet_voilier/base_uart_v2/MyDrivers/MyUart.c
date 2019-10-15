@@ -42,12 +42,13 @@ char bufferPull(Buffer *b){
 
 /*On active l'Interruption liée à la transmission de donnée de l'USART puis on envoi le caractère c */
 void MyUart_sendChar(char c){
+	MyUart_sendCharImmediate(c);/*
 	if(isEmpty(&tx_buff)) LL_USART_EnableIT_TXE(myUart);
-	bufferPush(&tx_buff,c);
+	bufferPush(&tx_buff,c);*/
 }
 void MyUart_sendCharImmediate(char c){
-	while(LL_USART_IsActiveFlag_TXE(USART1) == RESET)    {
-            }*/
+	while(LL_USART_IsActiveFlag_TXE(myUart) != RESET);
+	LL_USART_TransmitData8(myUart,c);
 }
 
 /* Fonction permettant d'envoyer la chaine str (appel en boucle de sendChar() ) */
