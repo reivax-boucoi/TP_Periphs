@@ -48,15 +48,12 @@ void CommandeServo(TIM_TypeDef * Timer, int alpha){
 	}else{
 		theta = 2*alpha/3 - 30;
 	}
-	/*
-	theta = 100*theta/3 + 3000; //theta ~ tempsPWM
-	LL_TIM_OC_SetCompareCH3(Timer,theta);	//modification du CCR du timer
-	*/
-	setTheta(theta);
+	setTheta(Timer, theta);
 }
 
-void setTheta(int theta){
-	
+void setTheta(TIM_TypeDef * Timer, int theta){
+	theta = 100*theta/3 + 3000; //theta ~ tempsPWM
+	LL_TIM_OC_SetCompareCH3(Timer,theta);	//modification du CCR du timer	
 }
 /*
 void MyITFunction(void){

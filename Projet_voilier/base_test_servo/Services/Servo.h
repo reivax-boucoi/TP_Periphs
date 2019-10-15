@@ -10,6 +10,9 @@ void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel);
 //loi de cmd du servo moteur
 void CommandeServo(TIM_TypeDef * Timer, int alpha);
 
+//theta en PWM
+void setTheta(TIM_TypeDef * Timer, int theta);
+
 //void MyITFunction(void);
 
 

@@ -48,13 +48,13 @@ int main(void)
 
 	MyUart_Conf(USART1,9600);
 	ServoPWM_Conf(TIM4,LL_TIM_CHANNEL_CH3);
-	CommandeServo(TIM4,0);
-	delay(500);
-	MyUart_sendString("Hello World ! ");
-	delay(500);
-	MyUart_sendNumber(123,0);
-	delay(500);
-	MyUart_sendString("\r\n");
+	
+	int i;
+	for (i=0;i<9;i++){
+		test = i*20;
+		setTheta(TIM4,test);
+		MyUart_sendNumber(test,2);
+	}
 	
   while (1){
 		
