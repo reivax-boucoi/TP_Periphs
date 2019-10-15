@@ -51,11 +51,10 @@ int main(void)
 	MyUart_sendString("Hello world \r\n");
 	
 	int i;
-	for (i=0;i<9;i++){
-		test = i*10;
-		setTheta(TIM4,test);
+	for (i=0;i<=90;i+=10){
+		setTheta(TIM4,i);
 		delay(500);
-		MyUart_sendNumber(test,0);
+		MyUart_sendNumber(i,0);
 		MyUart_sendChar('\n');
 	}
 	
