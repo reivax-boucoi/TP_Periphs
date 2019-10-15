@@ -5,7 +5,8 @@
 #include "stm32f103xb.h" 
 
 
-#define PinUartTX LL_GPIO_PIN_2
+#define PinUartTX LL_GPIO_PIN_9
+#define PinUartEnable LL_GPIO_PIN_11
 #define USART_Pin GPIOA
 
 #define BUFFER_SIZE 64

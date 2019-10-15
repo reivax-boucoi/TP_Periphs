@@ -93,12 +93,21 @@ void MyUart_Conf(USART_TypeDef * Uart,int baudrate){
 	
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
 	
+	//Configuration de l'USART
 	LL_GPIO_InitTypeDef uart_tx;
 	uart_tx.Pin=PinUartTX;
 	uart_tx.Mode=LL_GPIO_MODE_ALTERNATE;
 	uart_tx.Pull=LL_GPIO_PULL_DOWN;
 	uart_tx.Speed=LL_GPIO_SPEED_FREQ_LOW;
 	uart_tx.OutputType=LL_GPIO_OUTPUT_PUSHPULL;
+	
+	//Enable le Tx associé à l'émetteur (PA11)
+	LL_GPIO_InitTypeDef uart_en;
+	uart_en.Pin=PinUartEnable;
+	uart_en.Mode=LL_GPIO_MODE_OUTPUT;
+	uart_en.Pull=LL_GPIO_PULL_UP;
+	uart_en.Speed=LL_GPIO_SPEED_FREQ_LOW;
+	uart_en.OutputType=LL_GPIO_OUTPUT_PUSHPULL;
 	
 	if(Uart==USART1){
 	LL_GPIO_AF_EnableRemap_USART1();
@@ -109,6 +118,7 @@ void MyUart_Conf(USART_TypeDef * Uart,int baudrate){
 	}
 	
 	LL_GPIO_Init(USART_Pin, &uart_tx);
+	LL_GPIO_Init(USART_Pin, &uart_en);
 	
 	LL_USART_ClockInitTypeDef myUartClock;
 	myUartClock.ClockOutput=LL_USART_CLOCK_ENABLE;

@@ -8,7 +8,7 @@
 
 void Remote_init(void){
 
-	
+	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOB);
 	
 	LL_GPIO_InitTypeDef remote_rx;
@@ -20,26 +20,35 @@ void Remote_init(void){
 	
 	LL_GPIO_Init(Remote_Pin, &remote_rx);
 	
+LL_TIM_InitTypeDef timer;
 	
-}
-
-void Remote_conf(void){
-
-LL_TIM_IC_InitTypeDef myTim;	
-
-//Entrée pur la capture sur front montant 
-TIM4->CCR1|=TIM_CCMR1_CC1S_0;
-TIM4->CCR1&=~TIM_CCMR1_CC1S_1;
+	LL_TIM_Init(TIM4,&timer);
 	
+	LL_TIM_ENCODER_InitTypeDef encoder;
+	/*
 //Activation du front montant
-
-	myTim.ICPolarity=LL_TIM_IC_POLARITY_RISING;
-	myTim.ICFilter=LL_TIM_IC_FILTER_FDIV1;
-	myTim.ICActiveInput=LL_TIM_ACTIVEINPUT_DIRECTTI;
-	myTim.ICPrescaler=LL_TIM_ICPSC_DIV1;
 	
-
+	LL_TIM_IC_InitTypeDef myTimIC;
 	
+	myTimIC.ICPolarity=LL_TIM_IC_POLARITY_RISING;
+	myTimIC.ICFilter=LL_TIM_IC_FILTER_FDIV1;
+	myTimIC.ICActiveInput=LL_TIM_ACTIVEINPUT_DIRECTTI;
+	myTimIC.ICPrescaler=LL_TIM_ICPSC_DIV4;
+	
+	LL_TIM_IC_Init(TIM4,LL_TIM_CHANNEL_CH1,&myTimIC);
+	
+	
+//Activation du front descendant
+	
+	LL_TIM_IC_InitTypeDef myTimIC2;	
+
+	myTimIC2.ICPolarity=LL_TIM_IC_POLARITY_FALLING;
+	myTimIC2.ICFilter=LL_TIM_IC_FILTER_FDIV1;
+	myTimIC2.ICActiveInput=LL_TIM_ACTIVEINPUT_DIRECTTI;
+	myTimIC2.ICPrescaler=LL_TIM_ICPSC_DIV4;
+	
+	LL_TIM_IC_Init(TIM4,LL_TIM_CHANNEL_CH2,&myTimIC2);
+	*/
 }
 
 
