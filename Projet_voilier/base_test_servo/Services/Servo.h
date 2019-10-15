@@ -13,7 +13,5 @@ void CommandeServo(TIM_TypeDef * Timer, int alpha);
 //theta en PWM
 void setTheta(TIM_TypeDef * Timer, int theta);
 
-//void MyITFunction(void);
-
 
 #endif
