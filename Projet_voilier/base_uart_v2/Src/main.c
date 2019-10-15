@@ -24,6 +24,8 @@
 
 #include "MyUart.h"
 #include "Remote.h"
+
+
 void delay(int d){
 	for(int i=0;i<d;i++){for(int j=0;j<10000;j++);}
 	
@@ -38,18 +40,14 @@ void  SystemClock_Config(void);
   * @retval None
   */
 	
-int test;
 int main(void)
 {
 	
   SystemClock_Config();
-
+	
 	MyUart_Conf(USART1,9600);
-	//delay(500);
 	MyUart_sendString("Hello World ! ");
-	delay(500);
 	MyUart_sendNumber(123,0);
-	delay(500);
 	MyUart_sendString("\r\n");
 	
   while (1){

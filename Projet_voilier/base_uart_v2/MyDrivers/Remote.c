@@ -25,6 +25,8 @@ LL_TIM_InitTypeDef timer;
 	LL_TIM_Init(TIM4,&timer);
 	
 	LL_TIM_ENCODER_InitTypeDef encoder;
+	encoder.EncoderMode=LL_TIM_ENCODERMODE_X2_TI1;
+//	encoder.IC1ActiveInput=LL_TIM_
 	/*
 //Activation du front montant
 	
