@@ -1,5 +1,6 @@
 #include "Servo.h"
 #include "MyTimer.h"
+#include "MyUart.h"
 #include "stm32f1xx_ll_bus.h" // Pour l'activation des horloges
 #include "stm32f1xx_ll_tim.h" 
 #include "stm32f1xx_ll_gpio.h" 
@@ -47,6 +48,7 @@ void CommandeServo(TIM_TypeDef * Timer, int alpha){
 	}else{
 		theta = 2*alpha/3 - 30;
 	}
+	MyUart_sendNumber(theta,2);
 	theta = 100*theta/3 + 3000; //theta ~ tempsPWM
 	LL_TIM_OC_SetCompareCH3(Timer,theta);	//modification du CCR du timer
 }
