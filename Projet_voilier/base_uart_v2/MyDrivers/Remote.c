@@ -59,4 +59,51 @@ void Remote_init(void){
 }
 
 
+/*
 
+  TIM_ICInitStructure.TIM_Channel = TIM_Channel_2;
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
+  TIM_ICInitStructure.TIM_ICFilter = 0x0;
+
+  TIM_PWMIConfig(TIM2, &TIM_ICInitStructure);
+
+  // Select the TIM2 Input Trigger: TI2FP2 
+  TIM_SelectInputTrigger(TIM2, TIM_TS_TI2FP2);
+
+  // Select the slave Mode: Reset Mode 
+  TIM_SelectSlaveMode(TIM2, TIM_SlaveMode_Reset);
+
+  // Enable the Master/Slave Mode 
+  TIM_SelectMasterSlaveMode(TIM2, TIM_MasterSlaveMode_Enable);
+
+  // TIM enable counter
+  TIM_Cmd(TIM2, ENABLE);
+
+  // Enable the CC2 Interrupt Request 
+  TIM_ITConfig(TIM2, TIM_IT_CC2, ENABLE);
+  
+  void TIM2_IRQHandler(void)
+{
+  // Clear TIM2 Capture compare interrupt pending bit 
+  TIM_ClearITPendingBit(TIM2, TIM_IT_CC2);
+
+  // Get the Input Capture value 
+  IC2Value = TIM_GetCapture2(TIM2);
+
+  if (IC2Value != 0)
+  {
+    // Duty cycle computation 
+    DutyCycle = (TIM_GetCapture1(TIM2) * 100) / IC2Value;
+
+    // Frequency computation 
+    Frequency = 72000000 / IC2Value;
+  }
+  else
+  {
+    DutyCycle = 0;
+    Frequency = 0;
+  }
+}
+*/
