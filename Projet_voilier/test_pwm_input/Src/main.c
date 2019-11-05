@@ -23,6 +23,7 @@
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
 
 #include "MyUart.h"
+#include "Servo.h"
 #include "Remote.h"
 
 
@@ -49,8 +50,11 @@ int main(void)
 	MyUart_sendString("Hello World ! ");
 	MyUart_sendNumber(123,0);
 	MyUart_sendString("\r\n");
+	ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
+	setTheta(TIM1,45);
 	
-	Remote_init();
+	//Remote_init();
+	setTheta(TIM1,22);
   while (1){
 		
 		

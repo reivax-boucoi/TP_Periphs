@@ -4,6 +4,7 @@
 #include "stm32f1xx_ll_bus.h"
 #include "stm32f1xx_ll_tim.h"
 #include "Remote.h"
+#include "Servo.h"
 
 
 unsigned int remote_dc;
@@ -58,7 +59,7 @@ void Remote_init(void){
 	LL_TIM_IC_Init(TIM4,LL_TIM_CHANNEL_CH1,&myTimIC2);
 	
 	TIM4->SMCR|=TIM_SMCR_TS_0|TIM_SMCR_TS_2;
-	LL_TIM_SetSlaveMode(TIM4,LL_TIM_SLAVEMODE_RESET);
+	//LL_TIM_SetSlaveMode(TIM4,LL_TIM_SLAVEMODE_RESET);
 	
 	LL_TIM_EnableCounter(TIM4);
 	
@@ -73,11 +74,12 @@ void Remote_init(void){
 void TIM4_IRQHandler(void){
   LL_TIM_ClearFlag_CC1(TIM4);
 
-  unsigned int IC2Value = LL_TIM_IC_GetCaptureCH2(TIM4);
+  unsigned int IC1Value = LL_TIM_IC_GetCaptureCH1(TIM4);
 
-  if (IC2Value != 0){
-    remote_dc = (LL_TIM_IC_GetCaptureCH1(TIM4) * 256) / IC2Value;
-    remote_freq = 72000000 / TIM_PSC / IC2Value;
+  if (IC1Value != 0){
+    remote_dc = (LL_TIM_IC_GetCaptureCH2(TIM4) * 90) / IC1Value;
+    remote_freq = 72000000 / TIM_PSC / IC1Value;
+	//	setTheta(TIM1,90);
   }else{
     remote_dc = 0;
     remote_freq = 0;
