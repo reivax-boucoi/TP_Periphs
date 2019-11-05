@@ -36,14 +36,14 @@ void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	MyTimOC.CompareValue = 3000; //init angle de voile à 0
 	MyTimOC.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
 	MyTimOC.OCNPolarity = LL_TIM_OCPOLARITY_LOW;
-	MyTimOC.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
+	MyTimOC.OCIdleState = LL_TIM_OCIDLESTATE_HIGH;
 	MyTimOC.OCNIdleState = LL_TIM_OCIDLESTATE_LOW;
 	
 	LL_TIM_OC_Init(Timer, Channel, &MyTimOC);
 	
 	//configuration de la broche de sortie sur GPIOA.8
 
-	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOB|LL_APB2_GRP1_PERIPH_GPIOA);
+	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOB | LL_APB2_GRP1_PERIPH_GPIOA);
 	LL_GPIO_SetPinMode(Servo_Port,Servo_Pin,LL_GPIO_MODE_ALTERNATE);
 	
 	/*
