@@ -10,6 +10,6 @@ void DefSensPlateau(int sens);
 
 void PourcentageRotation(TIM_TypeDef * Timer, int vitesse);
 
-void CommandeMoteur(TIM_TypeDef * Timer, int angle);
+void CommandeMoteur(TIM_TypeDef * Timer, int remote);
 
 #endif
