@@ -50,8 +50,8 @@ int main(void)
 	MyUart_Conf(USART1,9600);
 	MyUart_sendString("Hello world \r\n");
 	
-	ServoPWM_Conf(TIM4,LL_TIM_CHANNEL_CH3);
-	ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
+	//ServoPWM_Conf(TIM4,LL_TIM_CHANNEL_CH3);
+	//ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
 	
 	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);
 	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH3);
