@@ -36,15 +36,15 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	MyTimOC.CompareValue = 0;
 	MyTimOC.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
 	MyTimOC.OCNPolarity = LL_TIM_OCPOLARITY_LOW;
-	MyTimOC.OCIdleState = LL_TIM_OCPOLARITY_LOW;
-	MyTimOC.OCNIdleState = LL_TIM_OCPOLARITY_HIGH;
+	MyTimOC.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
+	MyTimOC.OCNIdleState = LL_TIM_OCIDLESTATE_HIGH;
 	
 	LL_TIM_OC_Init(Timer, Channel, &MyTimOC);
 	
 	//configuration de la broche de sortie sur GPIOA
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
-	LL_GPIO_SetPinMode(GPIOB,LL_GPIO_PIN_1,LL_GPIO_MODE_ALTERNATE);
-	LL_GPIO_SetPinMode(GPIOB,LL_GPIO_PIN_2,LL_GPIO_MODE_OUTPUT);
+	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_1,LL_GPIO_MODE_ALTERNATE);
+	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_2,LL_GPIO_MODE_OUTPUT);
 	
 	
 	/*

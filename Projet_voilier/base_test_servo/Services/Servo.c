@@ -8,8 +8,6 @@
 
 void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	
-	LL_TIM_OC_InitTypeDef MyTimOC;
-	
 	//configurationo initiale du Timer
 	LL_TIM_InitTypeDef My_LL_Tim_Init_Struct;	
 	// Validation horloge locale
@@ -30,19 +28,23 @@ void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	LL_TIM_DisableCounter(Timer);
 	
 	//configuration initiale du mode PWM
+	
+	LL_TIM_OC_InitTypeDef MyTimOC;
+	
 	MyTimOC.OCMode = LL_TIM_OCMODE_PWM1;
 	MyTimOC.OCState = LL_TIM_OCSTATE_ENABLE;
 	MyTimOC.OCNState = LL_TIM_OCSTATE_DISABLE;
 	MyTimOC.CompareValue = 3000; //init angle de voile à 0
 	MyTimOC.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
 	MyTimOC.OCNPolarity = LL_TIM_OCPOLARITY_LOW;
-	MyTimOC.OCIdleState = LL_TIM_OCPOLARITY_LOW;
-	MyTimOC.OCNIdleState = LL_TIM_OCPOLARITY_HIGH;
+	MyTimOC.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
+	MyTimOC.OCNIdleState = LL_TIM_OCIDLESTATE_HIGH;
 	
 	LL_TIM_OC_Init(Timer, Channel, &MyTimOC);
 	
 	//configuration de la broche de sortie sur GPIOB.8
-	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOB);
+	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA|LL_APB2_GRP1_PERIPH_GPIOB);
+	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_8,LL_GPIO_MODE_ALTERNATE);
 	LL_GPIO_SetPinMode(GPIOB,LL_GPIO_PIN_8,LL_GPIO_MODE_ALTERNATE);
 	
 	/*
@@ -69,5 +71,8 @@ void CommandeServo(TIM_TypeDef * Timer, int alpha){
 
 void setTheta(TIM_TypeDef * Timer, int theta){
 	theta = 100*theta/3 + 3000; //theta ~ tempsPWM
+	LL_TIM_OC_SetCompareCH1(Timer,theta);	//modification du CCR du timer	
+	LL_TIM_OC_SetCompareCH2(Timer,theta);	//modification du CCR du timer	
 	LL_TIM_OC_SetCompareCH3(Timer,theta);	//modification du CCR du timer	
+	LL_TIM_OC_SetCompareCH4(Timer,theta);	//modification du CCR du timer	
 }

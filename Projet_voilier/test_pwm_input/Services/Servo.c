@@ -8,8 +8,6 @@
 
 void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	
-	LL_TIM_OC_InitTypeDef MyTimOC;
-	
 	//configurationo initiale du Timer
 	LL_TIM_InitTypeDef My_LL_Tim_Init_Struct;	
 	// Validation horloge locale
@@ -30,6 +28,9 @@ void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	LL_TIM_DisableCounter(Timer);
 	
 	//configuration initiale du mode PWM
+	
+	LL_TIM_OC_InitTypeDef MyTimOC;
+	
 	MyTimOC.OCMode = LL_TIM_OCMODE_PWM1;
 	MyTimOC.OCState = LL_TIM_OCSTATE_ENABLE;
 	MyTimOC.OCNState = LL_TIM_OCSTATE_DISABLE;
@@ -43,7 +44,7 @@ void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	
 	//configuration de la broche de sortie sur GPIOA.8
 
-	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOB | LL_APB2_GRP1_PERIPH_GPIOA);
+	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
 	LL_GPIO_SetPinMode(Servo_Port,Servo_Pin,LL_GPIO_MODE_ALTERNATE);
 	
 	/*
