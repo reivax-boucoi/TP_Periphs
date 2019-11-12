@@ -21,7 +21,7 @@ void INITIALISATIONDELAGIROUETTE(void){
 //Configurer TIM3
 	LL_TIM_InitTypeDef My_LL_Tim_Init_Struct;
 	
-	My_LL_Tim_Init_Struct.Autoreload=1000;
+	My_LL_Tim_Init_Struct.Autoreload=1440;
 	My_LL_Tim_Init_Struct.Prescaler=0;
 	My_LL_Tim_Init_Struct.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;
 	My_LL_Tim_Init_Struct.CounterMode=LL_TIM_COUNTERMODE_UP;
