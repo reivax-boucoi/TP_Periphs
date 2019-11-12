@@ -24,6 +24,7 @@
 
 #include "MyUart.h"
 #include "Servo.h"
+#include "Moteur.h"
 
 
 void delay(int d){
@@ -47,12 +48,19 @@ int main(void)
   SystemClock_Config();
 
 	MyUart_Conf(USART1,9600);
-	ServoPWM_Conf(TIM4,LL_TIM_CHANNEL_CH3);
 	MyUart_sendString("Hello world \r\n");
+	
+	ServoPWM_Conf(TIM4,LL_TIM_CHANNEL_CH3);
+	ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
+	
+	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);
+	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH3);
 	
 	int i;
 	for (i=0;i<=90;i+=10){
 		setTheta(TIM4,i);
+		setTheta(TIM1,i);
+		PourcentageRotation(TIM2,i);
 		delay(500);
 		MyUart_sendNumber(i,0);
 		MyUart_sendChar('\n');

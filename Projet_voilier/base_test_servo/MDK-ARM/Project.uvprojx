@@ -396,6 +396,11 @@
               <FileType>1</FileType>
               <FilePath>..\Services\Servo.c</FilePath>
             </File>
+            <File>
+              <FileName>Moteur.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Moteur.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -862,6 +867,11 @@
               <FileName>Servo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Services\Servo.c</FilePath>
+            </File>
+            <File>
+              <FileName>Moteur.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Services\Moteur.c</FilePath>
             </File>
           </Files>
         </Group>

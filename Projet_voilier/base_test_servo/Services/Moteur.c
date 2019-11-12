@@ -8,8 +8,6 @@
 
 void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	
-	LL_TIM_OC_InitTypeDef MyTimOC;
-	
 	//configurationo initiale du Timer
 	LL_TIM_InitTypeDef My_LL_Tim_Init_Struct;	
 	// Validation horloge locale
@@ -18,8 +16,10 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	else if (Timer==TIM3) LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM3);
 	else  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
 	// chargement structure Arr, Psc, Up Count
-	My_LL_Tim_Init_Struct.Autoreload=255;
-	My_LL_Tim_Init_Struct.Prescaler=5624;
+	My_LL_Tim_Init_Struct.Autoreload=59999;
+	My_LL_Tim_Init_Struct.Prescaler=23;
+	//My_LL_Tim_Init_Struct.Autoreload=255;
+	//My_LL_Tim_Init_Struct.Prescaler=5624;
 	My_LL_Tim_Init_Struct.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;
 	My_LL_Tim_Init_Struct.CounterMode=LL_TIM_COUNTERMODE_UP;
 	My_LL_Tim_Init_Struct.RepetitionCounter=0;	
@@ -30,6 +30,9 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	LL_TIM_DisableCounter(Timer);
 	
 	//configuration initiale du mode PWM
+	
+	LL_TIM_OC_InitTypeDef MyTimOC;
+	
 	MyTimOC.OCMode = LL_TIM_OCMODE_PWM1;
 	MyTimOC.OCState = LL_TIM_OCSTATE_ENABLE;
 	MyTimOC.OCNState = LL_TIM_OCSTATE_DISABLE;
@@ -45,14 +48,32 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
 	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_1,LL_GPIO_MODE_ALTERNATE);
 	LL_GPIO_SetPinMode(GPIOA,LL_GPIO_PIN_2,LL_GPIO_MODE_OUTPUT);
-	
-	
-	/*
-	//configuration de l'interruption globale
-	MyTimer_IT_Conf(Timer, MyITFunction, 0x25);
-	MyTimer_IT_Enable(Timer);
-	*/
-	
+	LL_GPIO_SetPinOutputType(GPIOA,LL_GPIO_PIN_2,LL_GPIO_OUTPUT_PUSHPULL);
+		
 	//activation du compteur
 	LL_TIM_EnableCounter(Timer);
+}
+
+
+void DefSensPlateau(int sens){
+		if(((GPIOC->IDR)&(0x1<<8)) == 0x1<<8){
+//bouton poussoir en logique inverse si en push-pull
+			GPIOC->BSRR = 0x1<<10;
+		}else{
+			GPIOC->BRR = 0x1<<10;
+	}
+}
+
+
+void PourcentageRotation(TIM_TypeDef * Timer, int vitesse){	
+	vitesse = 600*vitesse; //theta ~ tempsPWM
+	LL_TIM_OC_SetCompareCH1(Timer,vitesse);	//modification du CCR du timer	
+	LL_TIM_OC_SetCompareCH2(Timer,vitesse);	//modification du CCR du timer	
+	LL_TIM_OC_SetCompareCH3(Timer,vitesse);	//modification du CCR du timer	
+	LL_TIM_OC_SetCompareCH4(Timer,vitesse);	//modification du CCR du timer	
+}
+
+
+void CommandeMoteur(TIM_TypeDef * Timer, int angle){
+	
 }

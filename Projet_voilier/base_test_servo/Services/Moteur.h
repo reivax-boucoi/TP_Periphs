@@ -8,5 +8,8 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel);
 
 void DefSensPlateau(int sens);
 
+void PourcentageRotation(TIM_TypeDef * Timer, int vitesse);
+
+void CommandeMoteur(TIM_TypeDef * Timer, int angle);
 
 #endif
