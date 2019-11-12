@@ -9,8 +9,8 @@
 #define PinRemoteRx LL_GPIO_PIN_6
 #define Remote_Pin GPIOB
 
-#define TIM_PSC 23
-#define TIM_ARR 59999UL
+#define TIM_PSC 32
+#define TIM_ARR 65455
 void Remote_init(void);
 
 
