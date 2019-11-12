@@ -1,5 +1,3 @@
-
-
 /**
   ******************************************************************************
   * @file    Templates_LL/Src/main.c
@@ -21,16 +19,8 @@
 #include "stm32f1xx_ll_rcc.h" // utile dans la fonction SystemClock_Config
 #include "stm32f1xx_ll_utils.h"   // utile dans la fonction SystemClock_Config
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
+#include "MyGirouette.h"
 
-#include "MyUart.h"
-#include "Servo.h"
-#include "Remote.h"
-
-
-void delay(int d){
-	for(int i=0;i<d;i++){for(int j=0;j<10000;j++);}
-	
-}
 void  SystemClock_Config(void);
 
 /* Private functions ---------------------------------------------------------*/
@@ -41,23 +31,19 @@ void  SystemClock_Config(void);
   * @retval None
   */
 	
+
 int main(void)
 {
-	
+  /* Configure the system clock to 72 MHz */
   SystemClock_Config();
-	
-	MyUart_Conf(USART1,9600);
-	MyUart_sendString("Hello World ! ");
-	MyUart_sendNumber(123,0);
-	MyUart_sendString("\r\n");
-	//ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
-	//setTheta(TIM1,45);
-	
-	Remote_init();
-	//setTheta(TIM1,22);
-  while (1){
-		
-		
+
+  /* Add your application code here */
+	INITIALISATIONDELAGIROUETTE();
+
+  
+  /* Infinite loop */
+  while (1)
+  {
   }
 }
 
@@ -90,7 +76,7 @@ void SystemClock_Config(void)
   /* Enable HSE oscillator */
 	// ********* Commenter la ligne ci-dessous pour MCBSTM32 *****************
 	// ********* Conserver la ligne si Nucléo*********************************
-  //LL_RCC_HSE_EnableBypass();
+  LL_RCC_HSE_EnableBypass();
   LL_RCC_HSE_Enable();
   while(LL_RCC_HSE_IsReady() != 1)
   {
