@@ -33,13 +33,16 @@ void Remote_init(void){
 	timer.CounterMode=LL_TIM_COUNTERMODE_UP;
 	LL_TIM_Init(TIM4,&timer);
 	
-
+// Blocage IT
+//	LL_TIM_DisableIT_UPDATE(TIM4);	
+	// Blocage Timer
+//	LL_TIM_DisableCounter(TIM4);
 	
 //Activation du front montant
 	
 	LL_TIM_IC_InitTypeDef myTimIC;
 	
-	myTimIC.ICPolarity=LL_TIM_IC_POLARITY_RISING;
+	myTimIC.ICPolarity=LL_TIM_IC_POLARITY_FALLING;
 	myTimIC.ICFilter=LL_TIM_IC_FILTER_FDIV1;
 	myTimIC.ICActiveInput=LL_TIM_ACTIVEINPUT_DIRECTTI;
 	myTimIC.ICPrescaler=LL_TIM_ICPSC_DIV1;
@@ -51,7 +54,7 @@ void Remote_init(void){
 	
 	LL_TIM_IC_InitTypeDef myTimIC2;	
 
-	myTimIC2.ICPolarity=LL_TIM_IC_POLARITY_FALLING;
+	myTimIC2.ICPolarity=LL_TIM_IC_POLARITY_RISING;
 	myTimIC2.ICFilter=LL_TIM_IC_FILTER_FDIV1;
 	myTimIC2.ICActiveInput=LL_TIM_ACTIVEINPUT_DIRECTTI;
 	myTimIC2.ICPrescaler=LL_TIM_ICPSC_DIV1;
@@ -59,7 +62,7 @@ void Remote_init(void){
 	LL_TIM_IC_Init(TIM4,LL_TIM_CHANNEL_CH1,&myTimIC2);
 	
 	TIM4->SMCR|=TIM_SMCR_TS_0|TIM_SMCR_TS_2;
-	//LL_TIM_SetSlaveMode(TIM4,LL_TIM_SLAVEMODE_RESET);
+	LL_TIM_SetSlaveMode(TIM4,LL_TIM_SLAVEMODE_RESET);
 	
 	LL_TIM_EnableCounter(TIM4);
 	

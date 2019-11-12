@@ -9,7 +9,7 @@
 #define Servo_Pin LL_GPIO_PIN_8
 #define Servo_Port GPIOA
 
-//initialisation du timer(4) en Output PWM
+//initialisation du timer en Output PWM
 void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel);
 
 //loi de cmd du servo moteur
