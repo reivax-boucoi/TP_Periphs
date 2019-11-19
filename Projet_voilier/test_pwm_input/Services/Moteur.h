@@ -8,6 +8,7 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel);
 
 void DefSensPlateau(int sens);
 
+//réglage de la vitesse du plateau
 void PourcentageRotation(TIM_TypeDef * Timer, int vitesse);
 
 void CommandeMoteur(TIM_TypeDef * Timer, int remote);

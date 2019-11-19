@@ -17,9 +17,7 @@ void MoteurPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	else  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
 	// chargement structure Arr, Psc, Up Count
 	My_LL_Tim_Init_Struct.Autoreload=255;
-	My_LL_Tim_Init_Struct.Prescaler=5624;
-	//My_LL_Tim_Init_Struct.Autoreload=59999;
-	//My_LL_Tim_Init_Struct.Prescaler=23;
+	My_LL_Tim_Init_Struct.Prescaler=5;
 	My_LL_Tim_Init_Struct.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;
 	My_LL_Tim_Init_Struct.CounterMode=LL_TIM_COUNTERMODE_UP;
 	My_LL_Tim_Init_Struct.RepetitionCounter=0;	
@@ -66,10 +64,7 @@ void DefSensPlateau(int sens){
 
 
 void PourcentageRotation(TIM_TypeDef * Timer, int vitesse){
-	LL_TIM_OC_SetCompareCH1(Timer,vitesse);	//modification du CCR du timer	
-	LL_TIM_OC_SetCompareCH2(Timer,vitesse);	//modification du CCR du timer	
-	LL_TIM_OC_SetCompareCH3(Timer,vitesse);	//modification du CCR du timer	
-	LL_TIM_OC_SetCompareCH4(Timer,vitesse);	//modification du CCR du timer	
+	LL_TIM_OC_SetCompareCH2(Timer,vitesse);	//modification du CCR du timer
 }
 
 

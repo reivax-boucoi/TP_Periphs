@@ -26,6 +26,7 @@
 #include "Servo.h"
 #include "Remote.h"
 #include "Moteur.h"
+#include "MyGirouette.h"
 
 
 void delay(int d){
@@ -45,30 +46,51 @@ void  SystemClock_Config(void);
 int main(void)
 {
 	
+
   SystemClock_Config();
 	
 	MyUart_Conf(USART1,9600);
 	MyUart_sendString("Hello World ! ");
 	MyUart_sendNumber(123,0);
 	MyUart_sendString("\r\n");
-	//ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
-	//setTheta(TIM1,45);
+	
+	ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
 	
 	Remote_init();
 	
-	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);
-	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH3);
-	//setTheta(TIM1,22);
+	Girouette_init();
+	
+	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);	
+	
   while (1){
-		int i=0;
-		
   }
 }
 
 
+//Commande de la voile en fonction de l'angle du vent
+void TIM1_UP_IRQHandler(){
+  LL_TIM_ClearFlag_UPDATE(TIM1);
+	CommandeServo(TIM1,getGirouetteAngle());
+}
 
 
+void TIM4_IRQHandler(void){
+  LL_TIM_ClearFlag_CC1(TIM4);
 
+unsigned int remote_dc;
+//unsigned int remote_freq;	
+
+  unsigned int IC1Value = LL_TIM_IC_GetCaptureCH1(TIM4);
+
+  if (IC1Value != 0){
+    remote_dc = (LL_TIM_IC_GetCaptureCH2(TIM4) - 0x830)*512/(0xBFF-0x830) -256;	//0.08 à 0.15 -> 0 à 255
+    //remote_freq = 72000000 / TIM_PSC / IC1Value;
+		CommandeMoteur(TIM2,remote_dc);
+  }else{
+    remote_dc = 0;
+    //remote_freq = 0;
+  }
+}
 
 
 /**

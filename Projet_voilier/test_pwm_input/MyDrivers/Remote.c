@@ -7,10 +7,6 @@
 #include "Servo.h"
 
 
-unsigned int remote_dc;
-unsigned int remote_freq;
-
-
 void Remote_init(void){
 
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
@@ -71,20 +67,5 @@ void Remote_init(void){
 	NVIC_SetPriority(TIM4_IRQn,0x30);
 	NVIC_EnableIRQ(TIM4_IRQn);
 	
-}
-
-void TIM4_IRQHandler(void){
-  LL_TIM_ClearFlag_CC1(TIM4);
-
-  unsigned int IC1Value = LL_TIM_IC_GetCaptureCH1(TIM4);
-
-  if (IC1Value != 0){
-    remote_dc = (LL_TIM_IC_GetCaptureCH2(TIM4) * 90) / IC1Value;
-    remote_freq = 72000000 / TIM_PSC / IC1Value;
-	//	setTheta(TIM1,90);
-  }else{
-    remote_dc = 0;
-    remote_freq = 0;
-  }
 }
 

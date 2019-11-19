@@ -47,23 +47,40 @@ void ServoPWM_Conf(TIM_TypeDef * Timer, uint32_t Channel){
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
 	LL_GPIO_SetPinMode(Servo_Port,Servo_Pin,LL_GPIO_MODE_ALTERNATE);
 	
-	/*
-	//configuration de l'interruption globale
-	MyTimer_IT_Conf(Timer, MyITFunction, 0x25);
-	MyTimer_IT_Enable(Timer);
-	*/
+	LL_TIM_EnableAutomaticOutput(Timer);
 	
+	//configuration de l'interruption globale
+
+	// Blocage IT (il faudra la débloquer voir fct suivante)
+	LL_TIM_DisableIT_UPDATE(Timer);
+	
+	// validation du canal NVIC
+	IRQn_Type TIM_irq;
+	
+	if (Timer==TIM1) TIM_irq=TIM1_UP_IRQn;
+	else if (Timer==TIM2)	TIM_irq=TIM2_IRQn;
+	else if (Timer==TIM3)	TIM_irq=TIM3_IRQn;
+	else 	TIM_irq=TIM4_IRQn;
+	
+	NVIC_SetPriority(TIM_irq, 0x40);
+	NVIC_EnableIRQ(TIM_irq);
+
+		
 	//activation du compteur
 	LL_TIM_EnableCounter(Timer);
+	
+	LL_TIM_EnableIT_UPDATE(Timer);
 }
 
 
 void CommandeServo(TIM_TypeDef * Timer, int alpha){
 	int theta;
-	if((alpha<45) && (alpha>180)){
+	if((alpha>45) && (alpha<=180)){
+		theta = 2*alpha/3 - 30; //angle du vent entre 45° et 180° où angle voile = 90° pour alpha180°
+	}else if ((alpha>180) && (alpha<315)){
+		theta = -2*alpha/3 + 210; //alpha entre 180° et 315°
+	}else{	
 		theta = 0;
-	}else{
-		theta = 2*alpha/3 - 30;
 	}
 	setTheta(Timer, theta);
 }
