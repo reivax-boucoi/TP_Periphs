@@ -22,10 +22,8 @@
 #include "stm32f1xx_ll_utils.h"   // utile dans la fonction SystemClock_Config
 #include "stm32f1xx_ll_system.h" // utile dans la fonction SystemClock_Config
 
-#include "MyUart.h"
 #include "Servo.h"
-#include "Remote.h"
-#include "Moteur.h"
+#include "MyGirouette.h"
 
 
 void delay(int d){
@@ -42,30 +40,24 @@ void  SystemClock_Config(void);
   * @retval None
   */
 	
+int test;
 int main(void)
 {
 	
   SystemClock_Config();
 	
-	MyUart_Conf(USART1,9600);
-	MyUart_sendString("Hello World ! ");
-	MyUart_sendNumber(123,0);
-	MyUart_sendString("\r\n");
-	//ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
-	//setTheta(TIM1,45);
-	
-	Remote_init();
-	
-	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);
-	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH3);
-	//setTheta(TIM1,22);
+	ServoPWM_Conf(TIM4,LL_TIM_CHANNEL_CH3);
+	setTheta(TIM4,90);
+	girouetteInit();
   while (1){
-		int i=0;
+		
+	CommandeServo(TIM4,getGirouetteAngle()/4);
 		
   }
 }
 
-
+// RMQ : VERIFIER CE QUI SE PASE QD ON EST A 0 ET QU'ON DECREMENTE :
+// EST CE QUE C'EST LA VALEUR DE ARR OU C EST UN AUTRE REG ?
 
 
 

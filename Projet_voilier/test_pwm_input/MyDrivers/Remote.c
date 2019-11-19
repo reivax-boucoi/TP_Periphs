@@ -11,7 +11,6 @@ unsigned int remote_dc;
 unsigned int remote_freq;
 
 
-
 void Remote_init(void){
 
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
