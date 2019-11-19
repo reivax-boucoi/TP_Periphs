@@ -55,17 +55,9 @@ int main(void)
 	RCC->APB2ENR |=RCC_APB2ENR_IOPCEN;
 	LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSRC_PCLK2_DIV_6);
 	
-	GPIOConf () ;
-	ADCConf(ADC1);
-	LL_ADC_Enable(ADC1);
-	//ADC1->CR2|=0x01;
-	//delay(1000);
+  ADCInit();
 	
-	ADC_IT_Conf(ADC1, RecupADC,8);
-	ADC_IT_Enable(ADC1);
-	
-	
-	StartConversion(ADC1);
+	AllConversion();
 	
 	//ADC1->CR2 |= 1;
 	
