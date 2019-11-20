@@ -9,7 +9,7 @@ void RTC_init(void){
 	LL_I2C_InitTypeDef i2c_Init;
 	i2c_Init.ClockSpeed=80000;
 	i2c_Init.DutyCycle=LL_I2C_DUTYCYCLE_2;
-	i2c_Init.OwnAddress1=0x68;//0xD0 ?
+	i2c_Init.OwnAddress1=0x00;//0x68;//0xD0 ?
 	i2c_Init.OwnAddrSize=LL_I2C_OWNADDRESS1_7BIT;
 	i2c_Init.PeripheralMode=LL_I2C_MODE_I2C;
 	i2c_Init.TypeAcknowledge=LL_I2C_ACK;
@@ -42,7 +42,7 @@ void RTC_init(void){
 }
 void RTC_printTime(void){
 	int date,tendate,month,tenmonth,year,tenyear,hour,tenhour,min,tenmin,sec,tensec;
-	
+	LL_I2C_ReceiveData8(I2C2);
 	MyUart_sendChar(tendate+0x30);
 	MyUart_sendChar(date+0x30);
 	MyUart_sendChar('/');
@@ -61,4 +61,19 @@ void RTC_printTime(void){
 	MyUart_sendChar(tensec+0x30);
 	MyUart_sendChar(sec+0x30);
 	MyUart_sendChar('\t');
+}
+void i2c_start(){
+    while (LL_I2C_IsActiveFlag_BUSY(I2C2));
+	LL_I2C_GenerateStartCondition(I2C2);
+   // while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_MODE_SELECT));
+}
+ 
+void i2c_stop(){
+	LL_I2C_GenerateStopCondition(I2C2);
+    while (LL_I2C_IsActiveFlag_STOP(I2C2));
+}
+ void i2c_transmit(unsigned char byte){
+	 LL_I2C_TransmitData8(I2C2,byte);
+	 //LL_I2C_
+  // while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 }
