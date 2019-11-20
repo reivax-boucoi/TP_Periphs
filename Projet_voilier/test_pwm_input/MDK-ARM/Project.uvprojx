@@ -430,12 +430,12 @@
             <File>
               <FileName>RTC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTC.c</FilePath>
+              <FilePath>..\MyDrivers\RTC.c</FilePath>
             </File>
             <File>
               <FileName>RTC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\RTC.h</FilePath>
+              <FilePath>..\MyDrivers\RTC.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -938,12 +938,12 @@
             <File>
               <FileName>RTC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\RTC.c</FilePath>
+              <FilePath>..\MyDrivers\RTC.c</FilePath>
             </File>
             <File>
               <FileName>RTC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\RTC.h</FilePath>
+              <FilePath>..\MyDrivers\RTC.h</FilePath>
             </File>
           </Files>
         </Group>

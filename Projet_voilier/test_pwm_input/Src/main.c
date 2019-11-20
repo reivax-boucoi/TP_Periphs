@@ -26,8 +26,8 @@
 #include "Servo.h"
 #include "Remote.h"
 #include "Moteur.h"
+#include "RTC.h"
 #include "MyGirouette.h"
-
 
 void delay(int d){
 	for(int i=0;i<d;i++){for(int j=0;j<10000;j++);}
@@ -48,7 +48,7 @@ int main(void)
 	
 
   SystemClock_Config();
-	
+	RTC_init();
 	MyUart_Conf(USART1,9600);
 	MyUart_sendString("Hello World ! ");
 	MyUart_sendNumber(123,0);
