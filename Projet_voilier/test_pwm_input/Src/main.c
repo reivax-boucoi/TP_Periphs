@@ -48,7 +48,7 @@ int main(void)
 	
 
   SystemClock_Config();
-	
+	RTC_init();
 	MyUart_Conf(USART1,9600);
 	MyUart_sendString("Hello World ! ");
 	MyUart_sendNumber(123,0);
