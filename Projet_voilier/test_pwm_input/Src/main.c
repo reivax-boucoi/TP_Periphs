@@ -78,15 +78,17 @@ void TIM1_UP_IRQHandler(){
 
 //Commande du plateau en fonction de la commande-télécommande
 void TIM4_IRQHandler(void){
-  LL_TIM_ClearFlag_CC1(TIM4);
+  //LL_TIM_ClearFlag_CC1(TIM4);	
+  LL_TIM_ClearFlag_CC2(TIM4);
 
 unsigned int remote_dc;
 //unsigned int remote_freq;	
 
   unsigned int IC1Value = LL_TIM_IC_GetCaptureCH1(TIM4);
+	unsigned int IC2Value = LL_TIM_IC_GetCaptureCH2(TIM4);
 
   if (IC1Value != 0){
-    remote_dc = (LL_TIM_IC_GetCaptureCH2(TIM4) - 0x830)*512/(0xBFF-0x830) -256;	//0.08 à 0.15 -> 0 à 255
+    remote_dc = (IC1Value-IC2Value)*256/1500-3*256;
     //remote_freq = 72000000 / TIM_PSC / IC1Value;
 		CommandeMoteur(TIM2,remote_dc);
   }else{

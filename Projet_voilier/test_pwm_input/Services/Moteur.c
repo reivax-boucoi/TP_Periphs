@@ -69,11 +69,15 @@ void PourcentageRotation(TIM_TypeDef * Timer, int vitesse){
 
 
 void CommandeMoteur(TIM_TypeDef * Timer, int remote){
-	if (remote > 0){
+	//hystérésis pour le calibrage (incertitude) du zéro
+	if (remote > 30){
 		DefSensPlateau(1);
 		PourcentageRotation(Timer, remote);
-	}else{
+	}else if (remote < -30){
 		DefSensPlateau(0);
 		PourcentageRotation(Timer, -remote);
+	}else{
+		DefSensPlateau(0);
+		PourcentageRotation(Timer,0);
 	}
 }
