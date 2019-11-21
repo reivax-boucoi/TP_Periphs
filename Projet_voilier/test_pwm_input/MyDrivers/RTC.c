@@ -77,3 +77,4 @@ void i2c_stop(){
 	 //LL_I2C_
   // while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 }
+

@@ -28,6 +28,7 @@
 #include "Moteur.h"
 #include "RTC.h"
 #include "MyGirouette.h"
+#include "Accelerometre.h"
 
 void delay(int d){
 	for(int i=0;i<d;i++){for(int j=0;j<10000;j++);}
@@ -63,6 +64,7 @@ int main(void)
 	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);	
 	
   while (1){
+		
   }
 }
 
@@ -71,9 +73,10 @@ int main(void)
 void TIM1_UP_IRQHandler(){
   LL_TIM_ClearFlag_UPDATE(TIM1);
 	CommandeServo(TIM1,getGirouetteAngle());
+	Test_critique();
 }
 
-
+//Commande du plateau en fonction de la commande-télécommande
 void TIM4_IRQHandler(void){
   LL_TIM_ClearFlag_CC1(TIM4);
 
