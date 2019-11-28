@@ -56,7 +56,7 @@ void MyUart_sendString(const char* str){
 	while(*str>0)MyUart_sendChar(*str++);
 }
 
-/*Envoi un nmbre (min,sec...) en fonction du nombre de digits (Si digit>0 nb digit fixe, sinon nb digit flexible).*/
+/*Envoi un nmbre (min,sec...) en fonction du nombre de digits (1 ou 2 dans notre cas).*/
 
 void MyUart_sendNumber(int n,int digits){
 	int d=1;

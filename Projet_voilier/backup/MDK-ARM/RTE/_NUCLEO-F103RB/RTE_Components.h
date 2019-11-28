@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'Project' 
- * Target:  'Simulateur' 
+ * Target:  'NUCLEO-F103RB' 
  */
 
 #ifndef RTE_COMPONENTS_H

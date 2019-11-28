@@ -26,13 +26,8 @@
 #include "Servo.h"
 #include "Remote.h"
 #include "Moteur.h"
-#include "RTC.h"
 #include "MyGirouette.h"
-#include "Accelerometre.h"
-<<<<<<< HEAD
 
-=======
->>>>>>> a6c2231785edfd00822180a6dba411316c81a9d7
 
 void delay(int d){
 	for(int i=0;i<d;i++){for(int j=0;j<10000;j++);}
@@ -48,24 +43,16 @@ void  SystemClock_Config(void);
   * @retval None
   */
 	
-volatile int cnt = 0;
-volatile int alertLevel = 0;
 int main(void)
 {
 	
 
   SystemClock_Config();
-	RTC_init();
+	
 	MyUart_Conf(USART1,9600);
 	MyUart_sendString("Hello World ! ");
 	MyUart_sendNumber(123,0);
 	MyUart_sendString("\r\n");
-	
-	
-	
-  ADCInit();
-	
-	AllConversion();
 	
 	ServoPWM_Conf(TIM1,LL_TIM_CHANNEL_CH1);
 	
@@ -76,55 +63,27 @@ int main(void)
 	MoteurPWM_Conf(TIM2,LL_TIM_CHANNEL_CH2);	
 	
   while (1){
-		
   }
 }
-
 
 
 //Commande de la voile en fonction de l'angle du vent
 void TIM1_UP_IRQHandler(){
   LL_TIM_ClearFlag_UPDATE(TIM1);
-<<<<<<< HEAD
-	if(alertLevel==0){
-		CommandeServo(TIM1,getGirouetteAngle());
-	}else{
-		CommandeServo(TIM1,0);
-	}
-	cnt++;
-	if (cnt>20){
-		cnt = 0;
-		AllConversion();
-		alertLevel=Test_critique();
-	}
-=======
 	CommandeServo(TIM1,getGirouetteAngle());
-	Test_critique();
->>>>>>> a6c2231785edfd00822180a6dba411316c81a9d7
 }
 
-//Commande du plateau en fonction de la commande-télécommande
+
 void TIM4_IRQHandler(void){
-<<<<<<< HEAD
-  //LL_TIM_ClearFlag_CC1(TIM4);
-=======
-  //LL_TIM_ClearFlag_CC1(TIM4);	
->>>>>>> a6c2231785edfd00822180a6dba411316c81a9d7
-  LL_TIM_ClearFlag_CC2(TIM4);
+  LL_TIM_ClearFlag_CC1(TIM4);
 
 unsigned int remote_dc;
 //unsigned int remote_freq;	
 
   unsigned int IC1Value = LL_TIM_IC_GetCaptureCH1(TIM4);
-	unsigned int IC2Value = LL_TIM_IC_GetCaptureCH2(TIM4);
 
   if (IC1Value != 0){
-<<<<<<< HEAD
-   // remote_dc = (LL_TIM_IC_GetCaptureCH2(TIM4) - 0x830)*512/(0xBFF-0x830) -256;	//0.08 à 0.15 -> 0 à 255
-		remote_dc = (IC1Value-LL_TIM_IC_GetCaptureCH2(TIM4))*256/1500-3*256;
-=======
-    remote_dc = (IC1Value-IC2Value)*256/1500-3*256;
->>>>>>> a6c2231785edfd00822180a6dba411316c81a9d7
+    remote_dc = (LL_TIM_IC_GetCaptureCH2(TIM4) - 0x830)*512/(0xBFF-0x830) -256;	//0.08 à 0.15 -> 0 à 255
     //remote_freq = 72000000 / TIM_PSC / IC1Value;
 		CommandeMoteur(TIM2,remote_dc);
   }else{
