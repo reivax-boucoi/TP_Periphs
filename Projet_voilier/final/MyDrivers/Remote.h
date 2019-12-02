@@ -11,6 +11,11 @@
 
 #define TIM_PSC 23
 #define TIM_ARR 59999
+
+/* Configuration de la télécommande avec :
+	- initialisation du timer 4 en mode IC
+	- initialisation du GPIOB
+	*/
 void Remote_init(void);
 
 
