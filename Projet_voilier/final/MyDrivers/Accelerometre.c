@@ -64,17 +64,11 @@ void RecupADC (void)
 		y=Resultat;
 	else 
 		batteryVoltage=Resultat;
-	
-	
-
-	
 }
 
 void StartConversion (ADC_TypeDef * Conv) 
 {
   LL_ADC_REG_StartConversionSWStart(Conv);
-	
-
 }
 
 void GPIOConf () {
@@ -95,7 +89,7 @@ void GPIOConf () {
  }
  
  
- // Permettre 
+ // Permettre la conversion des paramètres x, y et le niveau de batterie
  void AllConversion () {
 	 getX();
 	 while(LL_ADC_IsActiveFlag_EOS(ADC1)==0);

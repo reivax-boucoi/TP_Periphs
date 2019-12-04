@@ -83,7 +83,7 @@ void TIM1_UP_IRQHandler(){
 	if(alertLevel==0){
 		CommandeServo(TIM1,getGirouetteAngle());
 	}else{
-		CommandeServo(TIM1,0);
+		setTheta(TIM1,0);	//rabattre la voile si problème
 	}
 	cnt++;
 	if (cnt>20){
